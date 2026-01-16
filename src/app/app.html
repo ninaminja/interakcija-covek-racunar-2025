@@ -1,2 +1,50 @@
-<p>{{title()}}</p>
-<router-outlet />
+<nav class="navbar navbar-expand-lg bg-body-tertiary mb-3">
+    <div class="container">
+        <a class="navbar-brand" routerLink="/">
+            <i class="fa-solid fa-graduation-cap"></i> ICR2025
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/" routerLinkActive="active">
+                        <i class="fa-solid fa-house"></i> Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/about" routerLinkActive="active">
+                        <i class="fa-solid fa-circle-info"></i> About
+                    </a>
+                </li>
+
+                @if(hasAuth()){
+                    <li class="nav-item">
+                    <button type="button" class="nav-link" (click)="doLogout()">
+                    <i class="fa-solid fa-door-open"></i> Logout
+                    </button>
+                </li>
+                }@else{
+
+                    <li class="nav-item">
+                    <a class="nav-link" routerLink="/login" routerLinkActive="active">
+                       <i class="fa-solid fa-arrow-right-to-bracket"></i> Login
+                    </a>
+                </li>
+
+                }
+            </ul>
+            @if(hasAuth()){
+            <div class="navbar-text"><i class="fa-regular fa-user"></i>{{getUserName()}}</div>
+            }
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <router-outlet />
+    <div class="text-center mt-3">
+        <p>&copy; {{year}} Tehnički Fakultet - Interakcija Čovek Računar</p>
+    </div>
+</div>
