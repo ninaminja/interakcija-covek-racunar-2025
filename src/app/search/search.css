@@ -1,0 +1,93 @@
+/* FORCE DARK TEXT IN SEARCH FIELDS */
+.search-input .mat-input-element,
+.search-input .mat-form-field-label,
+.search-input .mat-select-value {
+  color: #333333 !important;
+}
+
+/* Form field styling */
+.search-input .mat-form-field-flex {
+  background-color: white !important;
+  border: 1px solid #e0e0e0 !important;
+  border-radius: 8px !important;
+  padding: 8px 12px !important;
+}
+
+/* Label color */
+.search-input .mat-form-field-label {
+  color: #666666 !important;
+}
+
+/* When focused */
+.search-input .mat-form-field.mat-focused .mat-form-field-label {
+  color: #e91e63 !important; /* Rose color */
+}
+
+/* Input text color */
+.search-input input.mat-input-element,
+.search-input .mat-select-value-text {
+  color: #212121 !important; /* Very dark gray */
+  font-weight: 500;
+}
+
+/* Placeholder text */
+.search-input .mat-input-element::placeholder {
+  color: #9e9e9e !important;
+  opacity: 0.8;
+}
+
+/* Select dropdown panel */
+.mat-select-panel {
+  background-color: white !important;
+}
+
+.mat-option {
+  color: #333333 !important;
+}
+
+.mat-option:hover:not(.mat-option-disabled) {
+  background-color: rgba(233, 30, 99, 0.1) !important;
+}
+
+.mat-option.mat-selected:not(.mat-option-disabled) {
+  color: #e91e63 !important;
+  background-color: rgba(233, 30, 99, 0.05) !important;
+}
+
+/* SUPER FORCE LIGHTER TEXT */
+.search-card input {
+  color: #777777 !important;
+  -webkit-text-fill-color: #777777 !important;
+}
+
+.search-card .mat-form-field-label {
+  color: #999999 !important;
+}
+
+.mat-cell {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.mat-header-cell {
+  color: rgba(255, 255, 255, 1);
+}
+
+::ng-deep .mat-cell {
+  color: #f5f5f5;
+}
+
+::ng-deep .mat-header-cell {
+  color: #ffffff;
+}
+
+.mat-table{
+    color: #f5f5f5 !important;
+}
+
+::ng-deep .dark-table .mat-header-cell {
+  color: #ffffff !important;
+}
+
+::ng-deep .dark-table .mat-cell {
+  color: #e6e6e6 !important;
+}

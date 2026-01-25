@@ -1,0 +1,135 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - mood_great
+  - mood_unhappy
+  - bot_challenge
+  - latest_toys
+  #- search_toys
+  - action_better_search  
+  - type_list
+  - age_group_list
+  - recommend_by_type  # Dodali smo
+  - recommend_by_age   # Dodali smo
+  - toy_details
+  - ask_toy_by_type    # Dodali smo
+  - ask_toy_by_age     # Dodali smo
+  - place_order        # Dodali smo
+
+entities:
+  - search_criteria
+  - type_criteria
+  - age_criteria
+  - toy_criteria
+
+slots:
+  search_criteria:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: search_criteria
+  
+  type_criteria:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: type_criteria
+  
+  age_criteria:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: age_criteria
+  
+  toy_criteria:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: toy_criteria
+  
+  toy_permalink:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: custom
+  
+  type_id:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: custom
+  
+  age_group_id:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: custom
+
+responses:
+  utter_greet:
+  - text: "👋 Zdravo! Ja sam vaš asistent za igračke. Kako mogu da vam pomognem?"
+  - text: "👋 Dobrodošli! Ja sam chatbot za igračke. Šta vas interesuje?"
+
+  utter_goodbye:
+  - text: "Doviđenja! Uživajte u igračkama! 🧸"
+  - text: "Ćao! Nadam se da sam bio od pomoći! 🎮"
+
+  utter_iamabot:
+  - text: "Ja sam chatbot za igračke! 🤖 Pomažem vam da pronađete savršene igračke."
+  - text: "Da, ja sam bot specijalizovan za igračke! 🎯"
+
+  utter_ask_search:
+  - text: "Koje igračke tražite?"
+
+  utter_ask_type:
+  - text: "Koji tip igračaka vas interesuje? (na primer: edukativne, građevinske, lutke, puzzle)"
+
+  utter_ask_age:
+  - text: "Za koju starosnu grupu? (na primer: bebe, mališani, deca, tinejdžeri)"
+
+  utter_ask_toy_details:
+  - text: "Za koju igračku želite detalje?"
+
+  utter_no_toys_found:
+  - text: "Žao mi je, nisam pronašao igračke po vašim kriterijumima. 😔"
+
+  utter_default:
+  - text: "Izvinite, nisam siguran šta ste rekli. Pitajte me o igračkama! 🧸"
+
+  utter_fallback:
+  - text: "Ups! Nisam razumeo. Možete li da ponovite drugačije? 🤔"
+
+actions:
+  - action_hello_world
+  - action_latest_toys
+  - action_search_toys
+  - action_type_list
+  - action_age_group_list
+  - action_select_toy_type
+  - action_select_age_group
+  - action_recommend_toys
+  - action_extract_toy
+  - action_list_order
+  - action_place_order
+  - utter_greet
+  - utter_goodbye
+  - utter_iamabot
+  - utter_ask_search
+  - utter_ask_type
+  - utter_ask_age
+  - utter_ask_toy_details
+  - utter_no_toys_found
+  - utter_default
+  - utter_fallback
+
+session_config:
+  session_expiration_time: 300
+  carry_over_slots_to_new_session: true

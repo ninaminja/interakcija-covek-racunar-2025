@@ -1,0 +1,59 @@
+version: "3.1"
+
+stories:
+
+# Basic stories
+- story: happy path
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: latest_toys
+  - action: action_latest_toys
+
+- story: sad path 1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: search toys flow
+  steps:
+  - intent: search_toys
+  - action: action_search_toys
+
+- story: filter by type flow
+  steps:
+  - intent: ask_toy_by_type
+  - action: action_select_toy_type
+  - action: action_recommend_toys
+
+- story: filter by age flow
+  steps:
+  - intent: ask_toy_by_age
+  - action: action_select_age_group
+  - action: action_recommend_toys
+
+- story: toy details flow
+  steps:
+  - intent: toy_details
+  - action: action_extract_toy
+
+- story: list types flow
+  steps:
+  - intent: type_list
+  - action: action_type_list
+
+- story: list age groups flow
+  steps:
+  - intent: age_group_list
+  - action: action_age_group_list
+
+- story: complete order flow
+  steps:
+  - intent: search_toys
+  - action: action_search_toys
+  - intent: toy_details
+  - action: action_extract_toy
+  - intent: place_order
+  - action: action_place_order

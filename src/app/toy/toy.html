@@ -1,0 +1,178 @@
+@if (toy()){
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+       <a routerLink="/">Home</a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">{{toy()?.name}}</li>
+  </ol>
+</nav>
+
+<div class="row">
+    <div class="col-12 col-md-4">
+        <img [src]=" 'https://toy.pequla.com/' + toy()?.imageUrl" class="img-fluid" [alt]="toy()?.name">
+    </div>
+    <div class="col-12 col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5>{{toy()?.name}}</h5>
+            </div>
+            <div class="card-body">
+                <p [innerHTML]="toy()?.description"></p>
+                
+                <!-- SEKCIJA SA OCENAMA -->
+                <div class="row mb-3">
+                  <div class="col-12">
+                    <div class="d-flex align-items-center mb-2">
+                      <h6 class="mb-0 me-3">Ocena korisnika:</h6>
+                      <div class="star-rating">
+                        @for (star of [1,2,3,4,5]; track star) {
+                          <i class="fa-solid fa-star" [ngClass]="star <= averageRating() ? 'text-warning' : 'text-secondary'"></i>
+                        }
+                        <span class="ms-2">{{averageRating()}} ({{totalReviews()}} recenzija)</span>
+                      </div>
+                    </div>
+                    
+                    <!-- PRIKAZ RECENZIJA -->
+                    <div class="reviews-list mt-3">
+                      @if (reviews().length > 0) {
+                        <h6>Recenzije:</h6>
+                        @for (review of reviews(); track review.id) {
+                          <div class="review-item mb-3 p-2 border rounded">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                              <div>
+                                <strong class="me-2">{{review.userName || 'Anonimni korisnik'}}</strong>
+                                <div class="star-rating-small d-inline-block">
+                                  @for (star of [1,2,3,4,5]; track star) {
+                                    <i class="fa-solid fa-star" 
+                                       [ngClass]="star <= review.rating ? 'text-warning' : 'text-secondary'" 
+                                       style="font-size: 0.8rem;"></i>
+                                  }
+                                </div>
+                              </div>
+                              <small class="text-muted">{{review.createdAt | date:'dd.MM.yyyy.'}}</small>
+                            </div>
+                            <p class="mb-0">{{review.comment}}</p>
+                          </div>
+                        }
+                      } @else {
+                        <p class="text-muted">Još uvek nema recenzija za ovu igračku.</p>
+                      }
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-12 col-md-6">
+                    <h6>Tip igracke:</h6>
+                    <ul>
+                      <li>{{toy()?.type?.name}}</li>
+                    </ul>
+                  </div> 
+
+                  <div class="col-12 col-md-6">
+                    <h6>Opis datog tipa: </h6>
+                    <ul>
+                      <li>{{toy()?.type?.description}}</li>
+                    </ul>
+                  </div> 
+
+                  <div class="col-12 col-md-6">
+                    <h6>Uzrast: </h6>
+                    <ul>
+                      <li>{{toy()?.ageGroup?.name}} godine</li>
+                    </ul>
+                  </div> 
+                  
+                  <div class="col-12 col-md-6">
+                    <h6>Ciljna grupa: </h6>
+                    <ul>
+                      <li>{{toy()?.targetGroup}}</li>
+                    </ul>
+                  </div> 
+                  
+                  <div class="col-12 col-md-6">
+                    <h6>Datum proizvodnje: </h6>
+                    <ul>
+                      <li>{{toy()?.productionDate}}</li>
+                    </ul>
+                  </div> 
+
+                  <div class="col-12 col-md-6">
+                    <h6>Cena: </h6>
+                    <ul>
+                      <li>{{toy()?.price}} RSD</li>
+                    </ul>
+                  </div> 
+                </div>
+
+            </div>
+
+            <div class="card-footer">
+              <a class="btn btn-sm btn-success" [routerLink]="`/toy/${toy()?.permalink}/reservation`">
+                <i class="fa-solid fa-cart-shopping"></i> Add to cart
+              </a>
+            </div>
+
+        </div>
+
+        <!-- FORMA ZA DODAVANJE RECENZIJE -->
+        <div class="card mt-3">
+          <div class="card-header">
+            <h5>Ocenite ovu igračku</h5>
+          </div>
+          <div class="card-body">
+            <button class="btn btn-primary mb-3" (click)="toggleReviewForm()">
+              @if (!reviewForm.showForm) {
+                <i class="fa-solid fa-pen me-1"></i> Ostavite recenziju
+              } @else {
+                <i class="fa-solid fa-times me-1"></i> Otkaži
+              }
+            </button>
+            
+            @if (reviewForm.showForm) {
+              <div class="review-form p-3 border rounded">
+                <div class="mb-3">
+                  <label class="form-label">Vaše ime (opciono):</label>
+                  <input type="text" class="form-control" 
+                         [(ngModel)]="reviewForm.userName"
+                         placeholder="Unesite vaše ime ili ostavite prazno za anonimno">
+                </div>
+                
+                <div class="mb-3">
+                  <label class="form-label">Vaša ocena:</label>
+                  <div class="star-rating-input mb-2">
+                    @for (star of [1,2,3,4,5]; track star) {
+                      <button type="button" class="btn btn-link p-0 me-1"
+                              (click)="setRating(star)"
+                              [ngClass]="star <= reviewForm.rating ? 'text-warning' : 'text-secondary'">
+                        <i class="fa-solid fa-star" style="font-size: 1.5rem;"></i>
+                      </button>
+                    }
+                    <span class="ms-2">
+                      {{reviewForm.rating > 0 ? reviewForm.rating + ' / 5' : 'Izaberite ocenu'}}
+                    </span>
+                  </div>
+                </div>
+                
+                <div class="mb-3">
+                  <label class="form-label">Vaš komentar:</label>
+                  <textarea class="form-control" rows="3"
+                            [(ngModel)]="reviewForm.comment"
+                            placeholder="Podelite vaše iskustvo sa ovom igračkom..."></textarea>
+                </div>
+                
+                <button class="btn btn-success" 
+                        (click)="submitReview()"
+                        [disabled]="!reviewForm.comment.trim() || reviewForm.rating === 0">
+                  <i class="fa-solid fa-paper-plane me-1"></i> Pošalji recenziju
+                </button>
+              </div>
+            }
+          </div>
+        </div>
+
+    </div>
+</div>
+}

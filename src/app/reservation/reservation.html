@@ -1,0 +1,65 @@
+
+@if (toy()) {
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a routerLink="/">Home</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a [routerLink]="`/toy/${toy()?.permalink}`">
+                {{toy()?.name}}
+            </a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Reservation</li>
+    </ol>
+</nav>
+
+<div class="row">
+    <div class="col-12 col-md-4">
+        <img [src]=" 'https://toy.pequla.com/' + toy()?.imageUrl" [alt]="toy()?.name" class="img-fluid">
+    </div>
+    <div class="col-12 col-md-8">
+        <!-- DODAJ formGroup i (ngSubmit) -->
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="card">
+                <div class="card-header">
+                    <h5> {{toy()?.name}}</h5>
+                    <div>{{toy()?.description}}</div>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="store" class="form-label">Lokacija prodavnice</label>
+                        <select class="form-select" id="store" formControlName="store">
+                            <option value="Novi Beograd">Novi Beograd</option>
+                            <option value="Zemun">Zemun</option>
+                            <option value="Zvezdara">Zvezdara</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="quantity" class="form-label">Broj igracaka</label>
+                        <input type="number" class="form-control" id="quantity" formControlName="quantity">
+                    </div>
+                    <!-- DODAJ radio button za online -->
+                    <div class="mb-3">
+                        <label class="form-label">Način poručivanja</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" id="online" value="true" formControlName="online">
+                            <label class="form-check-label" for="online">Online poručivanje</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" id="inStore" value="false" formControlName="online">
+                            <label class="form-check-label" for="inStore">Lično preuzimanje</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <!-- Promeni button tip na submit -->
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa-solid fa-cart-shopping"></i> Book Now
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+}

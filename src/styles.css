@@ -4,3 +4,47 @@
     margin-left: auto;
     margin-right: auto;
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* Angular Material table – force light text */
+.mat-mdc-table,
+.mat-mdc-header-cell,
+.mat-mdc-cell {
+  color: #f5f5f5 !important;
+}
+
+/* Header */
+.mat-mdc-header-cell {
+  font-weight: 600;
+}
+
+/* Row hover (optional but nice) */
+.mat-mdc-row:hover {
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+
+/* Form field background */
+.mat-mdc-form-field-flex {
+  background-color: rgba(255, 255, 255, 0.04);
+  border-radius: 8px;
+  padding: 4px 8px;
+}
+
+/* Hover effect */
+.mat-mdc-form-field:hover .mat-mdc-form-field-flex {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.mat-mdc-select-panel {
+  background-color: #1f1f1f !important;
+}
+
+.mat-mdc-option {
+  color: #ffffff !important;
+}
+
+.mat-mdc-option:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}

@@ -20,7 +20,20 @@
                     </a>
                 </li>
 
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/search" routerLinkActive="active">
+                        <i class="fa-solid fa-magnifying-glass"></i> Search
+                    </a>
+                </li>
+
                 @if(hasAuth()){
+
+                    <li class="nav-item">
+                    <a class="nav-link" routerLink="/profile" routerLinkActive="active">
+                        <i class="fa-solid fa-address-card"></i> Profile
+                    </a>
+                </li>
+
                     <li class="nav-item">
                     <button type="button" class="nav-link" (click)="doLogout()">
                     <i class="fa-solid fa-door-open"></i> Logout
@@ -44,6 +57,48 @@
 </nav>
 <div class="container">
     <router-outlet />
+    <div class = "chatbot-container position-fixed bottom-0 end-0 p-3">
+        @if(isChatVisible){
+                    <button type="button" class="btn btn-primary rounded-circle p-3" (click)="toggleChat()">
+            <i class="fa-regular fa-comments"></i>
+        </button>
+        }@else {
+                    <div class="chatbox card chatbox-content">
+            <div class="card-header d-flex justify-content-between">
+                <span  class="fw-bold">Toy's bot</span>
+                <button class="btn-close" aria-label="Close" (click)="toggleChat()"></button>
+            </div>
+            <div class="card-body chat-body">
+                @for (msg of messages; track $index){
+                    <div class="message mb-2">
+                    @if (msg.type == 'user'){
+                    <div class="text-end">
+                        <div class="badge bg-primary text-white">{{msg.text}}</div>
+                    </div>
+                        }
+                     @if (msg.type == 'bot'){
+                    <div class="text-start">
+                        <div class="badge bg-secondary text-white msg-content" 
+                         [innerHTML]="msg.text"></div>
+                    </div>
+                     }
+                    @if (msg.type == 'error'){
+                    <div class="text-start">
+                        <div class="badge bg-danger text-white msg-content">{{msg.text}}</div>
+                    </div>
+                    }
+                </div>
+                    }
+        </div>
+        <div>
+            <div class="card-footer">
+                <input type="text" class="form-control" placeholder="Type your message..."[(ngModel)]="userMessage" (keyup.enter)="sendUserMessage()">
+            </div>
+        </div>
+        </div>
+        }
+    </div>
+
     <div class="text-center mt-3">
         <p>&copy; {{year}} Tehnički Fakultet - Interakcija Čovek Računar</p>
     </div>

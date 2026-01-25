@@ -1,0 +1,112 @@
+version: "3.1"
+
+nlu:
+- intent: greet
+  examples: |
+    - hi
+    - hello
+    - hey
+    - good morning
+    - good evening
+    - hi there
+
+- intent: goodbye
+  examples: |
+    - bye
+    - goodbye
+    - see you
+    - see ya
+    - good night
+    - have a nice day
+
+- intent: latest_toys
+  examples: |
+    - show me toys
+    - what toys do you have
+    - latest toys
+    - new toys
+    - show me the newest toys
+    - what's new in toys
+
+- intent: search_toys
+  examples: |
+    - find [dolls](search_criteria)
+    - search for [cars](search_criteria)
+    - show me [puzzles](search_criteria)
+    - I want [educational toys](search_criteria)
+    - looking for [wooden toys](search_criteria)
+
+- intent: type_list
+  examples: |
+    - show me toy types
+    - what types of toys do you have
+    - list toy categories
+    - types of toys
+    - categories
+
+- intent: age_group_list
+  examples: |
+    - what age groups
+    - list age groups
+    - show me age categories
+    - for what ages
+    - age groups available
+
+- intent: ask_toy_by_type
+  examples: |
+    - show me [educational](type_criteria) toys
+    - [building](type_criteria) toys
+    - [dolls](type_criteria)
+    - [puzzle](type_criteria) type
+    - [games](type_criteria) toys
+
+- intent: ask_toy_by_age
+  examples: |
+    - toys for [babies](age_criteria)
+    - for [3 years old](age_criteria)
+    - [toddlers](age_criteria) toys
+    - [children](age_criteria) toys
+    
+
+- intent: toy_details
+  examples: |
+    - details about [wooden puzzle](toy_criteria)
+    - show me [doll house](toy_criteria)
+    - information about [car toy](toy_criteria)
+    - tell me about [lego set](toy_criteria)
+
+- intent: place_order
+  examples: |
+    - place order
+    - order this
+    - I want to buy
+    - purchase this toy
+    - make an order
+
+- intent: bot_challenge
+  examples: |
+    - are you a bot?
+    - are you human?
+    - am I talking to a bot?
+    - what are you?
+
+- regex: search_criteria
+  examples: |
+    - (?<=find ).*
+    - (?<=search for ).*
+    - (?<=show me ).*
+
+- regex: type_criteria
+  examples: |
+    - (?<=type ).*
+    - (?<=category ).*
+
+- regex: age_criteria
+  examples: |
+    - (?<=for ).*
+    - (?<=age ).*
+
+- regex: toy_criteria
+  examples: |
+    - (?<=about ).*
+    - (?<=details ).*

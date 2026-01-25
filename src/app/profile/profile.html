@@ -1,0 +1,93 @@
+<div class="card mb-3">
+    <div class="card-header">
+        <h5>User Details</h5>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <table class="table table-striped">
+                    <tbody>
+                        <tr>
+                            <th scope="row">First Name:</th>
+                            <td>{{activeUser()?.firstName}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Last Name:</th>
+                            <td>{{activeUser()?.lastName}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-12 col-md-6">
+                <table class="table table-striped">
+                    <tbody>
+                        <tr>
+                            <th scope="row">Email:</th>
+                            <td>{{activeUser()?.email}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Phone:</th>
+                            <td>{{activeUser()?.phone}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Total Spent:</th>
+                            <td>
+                                <strong class="text-success">
+                                    {{totalSpent()}} RSD
+                                </strong>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class = "card">
+    <div class="card-header">
+        <h5>Orders</h5>
+    </div>
+   @if (activeUser() && activeUser()!.data && activeUser()!.data.length > 0){
+        <div class="card-body">
+            @for (order of activeUser()?.data; track $index){
+                <div class="mb-2 p-2 border rounded">
+                    <p><strong>Order ID:</strong> {{order.orderId}}</p>
+                    <p><strong>Toy:</strong> {{order.nameOfToy}}</p>
+                    <p><strong>Quantity:</strong> {{order.quantity}}</p>
+                    <p><strong>Status:</strong> {{statusMap[order.status] || order.status}}</p>
+                    <p><strong>Store:</strong> {{order.store}}</p>
+
+                    @if (order.price !== undefined) {
+                        <p><strong>Price per item:</strong> {{order.price}}</p>
+                        <p><strong>Total for order:</strong> 
+                            <strong class="text-primary">
+                                {{(order.price * order.quantity)}}
+                            </strong>
+                        </p>
+                    }
+                           
+                            <p><strong>Način poručivanja:</strong> 
+                                <span class="badge" [ngClass]="order.online ? 'bg-success' : 'bg-info'">
+                                    {{order.online ? 'Online poručivanje' : 'Lično preuzimanje'}}
+                                </span>
+                            </p>
+                    <!-- DODAJ BOTUNE AKO TREBA -->
+                    @if (order.status === 'na') {
+                        <button (click)="pay(order)" class="btn btn-success btn-sm me-2">Pay</button>
+                        <button (click)="cancel(order)" class="btn btn-danger btn-sm">Cancel</button>
+                    }
+                    @if (order.status === 'paid') {
+                        <button (click)="like(order)" class="btn btn-primary btn-sm me-2">Like</button>
+                        <button (click)="dislike(order)" class="btn btn-warning btn-sm">Dislike</button>
+                    }
+                </div>
+            }
+        </div>
+    } @else {
+        <div class="card-body">
+            <p class="text-muted">No orders found.</p>
+        </div>
+    }
+                  
+</div>
+    

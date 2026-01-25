@@ -11,7 +11,7 @@ import { Utils } from '../utils';
   styleUrl: './login.css'
 })
 export class Login {
-  protected form: FormGroup //za form delove koje radimo 
+  protected form: FormGroup
 
   constructor(private formBuilder: FormBuilder, private router: Router, private utils: Utils) {
     this.form = this.formBuilder.group({
@@ -21,16 +21,22 @@ export class Login {
   }
 
   onSubmit() {
-  if (!this.form.valid) {
+    if (!this.form.valid) {
       this.utils.showAlert('Invalid form data!')
       return
     }
 
     if (!UserService.login(this.form.value.email, this.form.value.password)) {
-     this.utils.showAlert('Invalid credentials!')
+      this.utils.showAlert('Invalid credentials!')
       return
     }
 
-    this.router.navigateByUrl('/')
- }
+    let to = '/'
+    if (localStorage.getItem(UserService.TO_KEY)) {
+      to = localStorage.getItem(UserService.TO_KEY)!
+      localStorage.removeItem(UserService.TO_KEY)
+    }
+
+    this.router.navigateByUrl(to)
+  }
 }
